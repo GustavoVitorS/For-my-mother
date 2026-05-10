@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Para minha mãe | Dia das Mães</title>
+  <style>
+    :root {
+      --rose: #ff5d8f;
+      --rose-strong: #ff2f6d;
+      --gold: #ffd166;
+      --cream: #fff4e6;
+      --wine: #3b0a22;
+      --deep: #120512;
+      --glass: rgba(255, 255, 255, 0.12);
+      --glass-border: rgba(255, 255, 255, 0.22);
+      --shadow: rgba(0, 0, 0, 0.35);
+      --text: #fffafc;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(255, 93, 143, 0.45), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(255, 209, 102, 0.30), transparent 34%),
+        linear-gradient(135deg, #150617, #3b0a22 45%, #170916);
+      overflow-x: hidden;
+    }
+
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: -20%;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    body::before {
+      background:
+        radial-gradient(circle, rgba(255, 255, 255, 0.18) 0 2px, transparent 3px) 0 0 / 68px 68px,
+        radial-gradient(circle, rgba(255, 209, 102, 0.18) 0 2px, transparent 3px) 34px 34px / 88px 88px;
+      animation: starMove 18s linear infinite;
+    }
+
+    body::after {
+      background: linear-gradient(120deg, rgba(255, 93, 143, 0.22), transparent, rgba(255, 209, 102, 0.16));
+      filter: blur(20px);
+      animation: aurora 9s ease-in-out infinite alternate;
+      z-index: -3;
+    }
+
+    .screen {
+      width: min(1180px, calc(100% - 32px));
+      min-height: 100vh;
+      margin: 0 auto;
+      display: grid;
+      place-items: center;
+      padding: 32px 0;
+    }
+
+    .intro-card,
+    .tribute-card {
+      width: 100%;
+      border: 1px solid var(--glass-border);
+      background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(255,255,255,0.06));
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 28px 80px var(--shadow);
+      border-radius: 34px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-card {
+      max-width: 720px;
+      padding: clamp(28px, 6vw, 58px);
+      text-align: center;
+      animation: fadeUp 900ms ease both;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      color: var(--cream);
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: clamp(2.4rem, 8vw, 5.2rem);
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      text-wrap: balance;
+    }
+
+    .gradient-text {
+      background: linear-gradient(90deg, #ffffff, var(--gold), #ff8fab, #ffffff);
+      background-size: 220% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: shine 5s linear infinite;
+    }
+
+    .intro-card p {
+      margin: 20px auto 0;
+      max-width: 560px;
+      color: rgba(255, 250, 252, 0.82);
+      font-size: clamp(1rem, 2.5vw, 1.18rem);
+      line-height: 1.7;
+    }
+
+    .input-area {
+      margin-top: 30px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .input-wrap {
+      position: relative;
+    }
+
+    input {
+      width: 100%;
+      min-height: 58px;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 999px;
+      padding: 0 24px;
+      outline: none;
+      font-size: 1rem;
+      color: #fff;
+      background: rgba(0, 0, 0, 0.22);
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04);
+      transition: 250ms ease;
+    }
+
+    input::placeholder { color: rgba(255,255,255,0.55); }
+
+    input:focus {
+      border-color: rgba(255, 209, 102, 0.92);
+      box-shadow: 0 0 0 5px rgba(255, 209, 102, 0.14);
+    }
+
+    button {
+      min-height: 58px;
+      border: 0;
+      border-radius: 999px;
+      padding: 0 28px;
+      cursor: pointer;
+      color: #3b0a22;
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+      background: linear-gradient(135deg, var(--gold), #ff8fab 70%, #ffffff);
+      box-shadow: 0 14px 30px rgba(255, 93, 143, 0.28);
+      transition: transform 250ms ease, filter 250ms ease, box-shadow 250ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.01);
+      filter: brightness(1.08);
+      box-shadow: 0 18px 38px rgba(255, 93, 143, 0.36);
+    }
+
+    .hint {
+      min-height: 24px;
+      margin: 0;
+      color: #ffd6e3;
+      font-size: 0.95rem;
+    }
+
+    .tribute-card {
+      display: none;
+      grid-template-columns: minmax(220px, 0.9fr) minmax(320px, 1.2fr) minmax(220px, 0.9fr);
+      align-items: center;
+      gap: clamp(16px, 3vw, 28px);
+      padding: clamp(18px, 3vw, 34px);
+    }
+
+    .tribute-card.active {
+      display: grid;
+      animation: reveal 950ms cubic-bezier(.16, 1, .3, 1) both;
+    }
+
+    .photo-frame {
+      margin: 0;
+      min-height: 420px;
+      border-radius: 30px;
+      padding: 10px;
+      background: linear-gradient(135deg, rgba(255,255,255,0.35), rgba(255,209,102,0.30), rgba(255,93,143,0.25));
+      box-shadow: 0 22px 55px rgba(0,0,0,0.32);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .photo-frame::before {
+      content: "";
+      position: absolute;
+      inset: 10px;
+      border-radius: 23px;
+      box-shadow: inset 0 0 45px rgba(255,255,255,0.16);
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .photo-frame::after {
+      content: "";
+      position: absolute;
+      inset: -70% -40%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.20), transparent);
+      transform: rotate(18deg);
+      animation: photoLight 5.8s ease-in-out infinite;
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      display: block;
+      object-fit: cover;
+      border-radius: 22px;
+      filter: brightness(1.08) contrast(1.12) saturate(1.12) sharpen(0.4);
+      transform: scale(1.015);
+    }
+
+    .photo-left {
+      transform: rotate(-2.4deg);
+      animation: floatLeft 4.8s ease-in-out infinite;
+    }
+
+    .photo-right {
+      transform: rotate(2.4deg);
+      animation: floatRight 5.2s ease-in-out infinite;
+    }
+
+    .message-box {
+      text-align: center;
+      padding: clamp(22px, 4vw, 38px);
+      border-radius: 30px;
+      background: rgba(18, 5, 18, 0.45);
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: inset 0 0 50px rgba(255, 93, 143, 0.08);
+    }
+
+    .message-box .small-title {
+      display: inline-block;
+      color: var(--gold);
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+
+    .message-box h2 {
+      margin: 0;
+      font-size: clamp(2rem, 6vw, 4rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+    }
+
+    .message {
+      margin: 24px 0 0;
+      color: rgba(255, 250, 252, 0.92);
+      font-size: clamp(1.06rem, 2.2vw, 1.32rem);
+      line-height: 1.75;
+      font-style: italic;
+      text-wrap: balance;
+    }
+
+    .signature {
+      margin-top: 22px;
+      color: var(--gold);
+      font-weight: 800;
+      font-size: 1.05rem;
+    }
+
+    .heart {
+      position: fixed;
+      bottom: -40px;
+      font-size: 22px;
+      opacity: 0;
+      animation: heartRise linear forwards;
+      pointer-events: none;
+      z-index: 20;
+    }
+
+    .replay {
+      margin-top: 20px;
+      color: rgba(255,255,255,0.82);
+      background: rgba(255,255,255,0.10);
+      border: 1px solid rgba(255,255,255,0.16);
+      box-shadow: none;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes reveal {
+      from { opacity: 0; transform: scale(0.96) translateY(18px); filter: blur(8px); }
+      to { opacity: 1; transform: scale(1) translateY(0); filter: blur(0); }
+    }
+
+    @keyframes shine {
+      to { background-position: 220% center; }
+    }
+
+    @keyframes aurora {
+      from { transform: translate3d(-3%, -2%, 0) scale(1); opacity: 0.65; }
+      to { transform: translate3d(3%, 2%, 0) scale(1.08); opacity: 1; }
+    }
+
+    @keyframes starMove {
+      to { transform: translate3d(70px, 90px, 0); }
+    }
+
+    @keyframes floatLeft {
+      0%, 100% { translate: 0 0; rotate: -2.4deg; }
+      50% { translate: 0 -16px; rotate: -1.2deg; }
+    }
+
+    @keyframes floatRight {
+      0%, 100% { translate: 0 0; rotate: 2.4deg; }
+      50% { translate: 0 16px; rotate: 1.2deg; }
+    }
+
+    @keyframes photoLight {
+      0%, 38% { translate: -40% 0; opacity: 0; }
+      52% { opacity: 1; }
+      72%, 100% { translate: 40% 0; opacity: 0; }
+    }
+
+    @keyframes heartRise {
+      0% { transform: translateY(0) scale(0.6) rotate(0deg); opacity: 0; }
+      12% { opacity: 0.95; }
+      100% { transform: translateY(-110vh) scale(1.35) rotate(22deg); opacity: 0; }
+    }
+
+    @media (max-width: 980px) {
+      .tribute-card {
+        grid-template-columns: 1fr;
+      }
+
+      .photo-frame {
+        min-height: 320px;
+        max-height: 460px;
+      }
+
+      .photo-frame img {
+        min-height: 300px;
+      }
+
+      .photo-left,
+      .photo-right {
+        transform: none;
+      }
+
+      .photo-left { order: 2; }
+      .message-box { order: 1; }
+      .photo-right { order: 3; }
+    }
+
+    @media (max-width: 560px) {
+      .screen { width: min(100% - 20px, 1180px); padding: 18px 0; }
+      .intro-card, .tribute-card { border-radius: 24px; }
+      .photo-frame { border-radius: 24px; padding: 8px; }
+      .photo-frame img { border-radius: 18px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="screen">
+    <section class="intro-card" id="intro">
+      <span class="badge">💐 Presente especial de Dia das Mães</span>
+      <h1><span class="gradient-text">Memórias para sempre</span></h1>
+      <p>Digite seu nome completo para abrir uma homenagem feita com todo amor.</p>
+
+      <div class="input-area">
+        <div class="input-wrap">
+          <input id="momName" type="text" placeholder="Digite seu nome completo..." autocomplete="name" />
+        </div>
+        <button id="openGift" type="button">Abrir homenagem 💖</button>
+        <p class="hint" id="hint"></p>
+      </div>
+    </section>
+
+    <section class="tribute-card" id="tribute" aria-live="polite">
+      <figure class="photo-frame photo-left">
+        <img src="assets/foto-esquerda.jpg" alt="Foto antiga de mãe com filho" />
+      </figure>
+
+      <article class="message-box">
+        <span class="small-title">Para Joana</span>
+        <h2><span class="gradient-text">Feliz Dia das Mães</span></h2>
+        <p class="message">
+          “Você sempre fez tudo por mim e me ensinou tudo o que eu sei.
+          É a melhor mãe que eu poderia ter em qualquer existência, te amo muito.”
+        </p>
+        <div class="signature">— Gustavo Vitor</div>
+        <button class="replay" type="button" id="backButton">Ver novamente</button>
+      </article>
+
+      <figure class="photo-frame photo-right">
+        <img src="assets/foto-direita.jpg" alt="Foto de mãe segurando o filho no colo" />
+      </figure>
+    </section>
+  </main>
+
+  <script>
+    const validNames = [
+      "joana darc braz josue",
+      "joana d arc braz josue",
+      "joana d'arc braz josue",
+      "joana d’arc braz josue"
+    ];
+
+    const input = document.getElementById("momName");
+    const button = document.getElementById("openGift");
+    const hint = document.getElementById("hint");
+    const intro = document.getElementById("intro");
+    const tribute = document.getElementById("tribute");
+    const backButton = document.getElementById("backButton");
+
+    function normalizeName(value) {
+      return value
+        .trim()
+        .toLowerCase()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .replace(/[’']/g, "'")
+        .replace(/\s+/g, " ");
+    }
+
+    function createHeart() {
+      const heart = document.createElement("span");
+      heart.className = "heart";
+      heart.textContent = ["💖", "🌷", "✨", "💐", "❤️"][Math.floor(Math.random() * 5)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.animationDuration = (5 + Math.random() * 4) + "s";
+      heart.style.fontSize = (18 + Math.random() * 18) + "px";
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 9000);
+    }
+
+    function openTribute() {
+      const typedName = normalizeName(input.value);
+
+      if (!validNames.includes(typedName)) {
+        hint.textContent = "Digite o nome completo da sua mãe para abrir o presente.";
+        input.focus();
+        return;
+      }
+
+      hint.textContent = "";
+      intro.style.display = "none";
+      tribute.classList.add("active");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+
+      for (let i = 0; i < 24; i++) {
+        setTimeout(createHeart, i * 130);
+      }
+    }
+
+    button.addEventListener("click", openTribute);
+    input.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") openTribute();
+    });
+
+    backButton.addEventListener("click", () => {
+      tribute.classList.remove("active");
+      intro.style.display = "block";
+      input.value = "";
+      hint.textContent = "";
+      input.focus();
+    });
+  </script>
+</body>
+</html>
